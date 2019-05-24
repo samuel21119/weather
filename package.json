@@ -1,0 +1,40 @@
+{
+  "name": "weather",
+  "version": "1.2.0",
+  "description": "a cute weather app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . --icon assets/icon.png"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "weather",
+    "app",
+    "cute",
+    "minimal"
+  ],
+  "author": "whoisroyal",
+  "license": "MIT License",
+  "build": {
+    "appId": "weatherapp",
+    "mac": {
+      "icon": "./icon.icns"
+    },
+    "win": {
+      "icon": "./icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^1.8.8"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "electron-osx-appearance": "^0.1.1",
+    "electron-packager": "^12.2.0",
+    "electron-titlebar": "0.0.3",
+    "menubar": "^5.2.3",
+    "request": "^2.85.0"
+  }
+}
