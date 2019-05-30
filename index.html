@@ -24,70 +24,72 @@
     </div>
     </div>
     <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
+        // You can also require other files to run in this process
+        require('./renderer.js')
     </script>
     <script>
-    // OpenWeatherMap API request
-    const request = require('request');
-    const para = require('./parameters.json');
-    let apiKey = para.api;
-    let city = para.city;
-    let url = `http://api.openweathermap.org/data/2.5/weather?id=${city}&units=metric&appid=${apiKey}`
-
-    request(url, function (err, response, body) {
-      if(err) {
-        console.log('! error:', error);
-      }else {
-        let weather = JSON.parse(body);
-        let message = `It's ${weather.main.temp}° in ${weather.name}! ${weather.main.pressure}hPa, ${weather.main.humidity} humidity, ${weather.main.temp_min}° - ${weather.main.temp_max}°. ${weather.wind.speed}km/h,  ${weather.wind.deg}deg.`;
-        let loc = `${weather.name}`;
-        let temp = `${weather.main.temp}°`.substring(0, 2);
-        let tempmin = `${weather.main.temp_min}°`.substring(0, 2);
-        let tempmax = `${weather.main.temp_max}°`.substring(0, 2);
-        let pressure = `${weather.main.pressure} hPa`;
-        let humidity = `${weather.main.humidity}%`;
-        let tempminmax = tempmin + '° to ' + tempmax + '°';
-        let wind = `${weather.wind.speed} km/h`;
-        console.log(message);
-        document.getElementById('localization').innerHTML = loc;
-        document.getElementById('temp').innerHTML = temp + "°";
-        document.getElementById('pressure').innerHTML = pressure;
-        document.getElementById('humidity').innerHTML = humidity;
-        document.getElementById('tempminmax').innerHTML = tempminmax;
-        document.getElementById('wind').innerHTML = wind;
-      }
-    });
-
-    // Date and Time
-    // 24 hour format
-    function startTime() {
-      var date = new Date();
-      var h=date.getHours();
-      var m=date.getMinutes();
-      m=checkTime(m);
-      document.getElementById('time').innerHTML = h + ":" + m;
-      t=setTimeout('startTime()',500)
-    }
-    function checkTime(i) {
-      if (i < 10)
-        i = "0" + i;
-      return i;
-    }
-    // 12 hour format
-    /* function startTime() {
-      var date = new Date()
-      var h = date.getHours();
-      var m = date.getMinutes();
-      m=checkTime(m);
-      var ampm = h >= 12 ? 'pm' : 'am';
-      h = h % 12;
-      h = h ? h : 12; // the hour '0' should be '12'
-      m = m < 10 ? '0'+m : m;
-      var strTime = h + ':' + m + ' ' + ampm;
-      document.getElementById('time').innerHTML = strTime;
-      t=setTimeout('startTime()',500) }
-      function checkTime(i) { if (i<10) { i="0" + i; } return i } */
+        // OpenWeatherMap API request
+        const request = require('request');
+        const para = require('./parameters.json');
+        function getWeather() {
+            let apiKey = para.api;
+            let city = para.city;
+            let url = `http://api.openweathermap.org/data/2.5/weather?id=${city}&units=metric&appid=${apiKey}`;
+            request(url, function (err, response, body) {
+                if(err) {
+                    console.log('! error:', error);
+                }else {
+                    let weather = JSON.parse(body);
+                    let message = `It's ${weather.main.temp}° in ${weather.name}! ${weather.main.pressure}hPa, ${weather.main.humidity} humidity, ${weather.main.temp_min}° - ${weather.main.temp_max}°. ${weather.wind.speed}km/h,  ${weather.wind.deg}deg.`;
+                    let loc = `${weather.name}`;
+                    let temp = `${weather.main.temp}°`.substring(0, 2);
+                    let tempmin = `${weather.main.temp_min}°`.substring(0, 2);
+                    let tempmax = `${weather.main.temp_max}°`.substring(0, 2);
+                    let pressure = `${weather.main.pressure} hPa`;
+                    let humidity = `${weather.main.humidity}%`;
+                    let tempminmax = tempmin + '° to ' + tempmax + '°';
+                    let wind = `${weather.wind.speed} km/h`;
+                    console.log(message);
+                    document.getElementById('localization').innerHTML = loc;
+                    document.getElementById('temp').innerHTML = temp + "°";
+                    document.getElementById('pressure').innerHTML = pressure;
+                    document.getElementById('humidity').innerHTML = humidity;
+                    document.getElementById('tempminmax').innerHTML = tempminmax;
+                    document.getElementById('wind').innerHTML = wind;
+                }
+            });
+        }
+        // Date and Time
+        // 24 hour format
+        function startTime() {
+            getWeather();
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            m = checkTime(m);
+            document.getElementById('time').innerHTML = h + ":" + m;
+            t = setTimeout('startTime()', 500);
+        }
+        function checkTime(i) {
+            if (i < 10)
+                i = "0" + i;
+            return i;
+        }
+        // 12 hour format
+        /* function startTime() {
+            var date = new Date()
+            var h = date.getHours();
+            var m = date.getMinutes();
+            m=checkTime(m);
+            var ampm = h >= 12 ? 'pm' : 'am';
+            h = h % 12;
+            h = h ? h : 12; // the hour '0' should be '12'
+            m = m < 10 ? '0'+m : m;
+            var strTime = h + ':' + m + ' ' + ampm;
+            document.getElementById('time').innerHTML = strTime;
+            t=setTimeout('startTime()',500)
+        }
+        function checkTime(i) { if (i<10) { i="0" + i; } return i } */
     </script>
   </body>
 </html>
