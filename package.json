@@ -32,7 +32,7 @@
   "dependencies": {
     "dotenv": "^6.0.0",
     "electron-osx-appearance": "^0.1.1",
-    "electron-packager": "^12.2.0",
+    "electron-packager": "^16.0.0",
     "electron-titlebar": "0.0.3",
     "menubar": "^5.2.3",
     "request": "^2.85.0"
